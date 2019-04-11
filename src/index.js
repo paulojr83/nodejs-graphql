@@ -1,14 +1,27 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { resolvers } from './graphql/resolvers';
+import { startDB, models } from './db';
+import { resolvers, pubsub } from './graphql/resolvers';
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware';
 
-const context = {};
+const db = startDB({ 
+  user: 'graphql', 
+  pwd: '12qwaszx', 
+  db: 'graphql', 
+  url: 'ds139446.mlab.com:39446' 
+})
+
+const context = {
+  pubsub,
+  models,
+  db,
+};
 
 const options = {    
   port: 8000,
   deduplicator: true,
   endpoint: '/graphql',     
-  playground: '/playground'
+  playground: '/playground',     
+  subscriptions: '/subscriptions',
 }
 
 const server = new GraphQLServer({

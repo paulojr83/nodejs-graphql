@@ -1,3 +1,54 @@
+type Message{
+  _id: ID!
+  user_id: String!
+  message: String!
+  createdOn: String!
+  user:User
+}
+
+type Group {
+  _id: ID!
+  user_id: String!
+  name: String!
+  imagePath: String!
+  users:[ User ]
+  createdOn: String!
+}
+
+type User{
+  _id: ID!
+  name: String!  
+  email: String!
+  imagePath: String!
+  friends:[ User ]
+  group: [ Group ]
+  createdOn: String!
+}
+
+input UserInput {
+  name: String!  
+  email: String!
+  imagePath: String!
+}
+
 type Query { 
   hello(name:String!):String 
+  users:[ User ]
+  user(id:ID!):User
+  groups:[ Group ]
+  messages:[ Message ]
+  login(email:String!):User
+}
+
+type Mutation {
+  createUser( input: UserInput): User
+  makeFriend( user_id:String!, friend_id:String! ): User
+  createGroup( user_id:String!, name: String!, imagePath: String! ): Group
+  addUserOnGroup( group_id:String!, user_id:String! ): Group
+  sendMessage( email:String!, message: String! ): Message
+}
+
+type Subscription {  
+  newMessage:Message 
+  newMessageWithParm(user_id:String!):Message
 }
