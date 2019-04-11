@@ -21,3 +21,5 @@ Para começar a desenvolver imediatamente:
     │    ├── schema.graphql # schema da API com GraphQL   
     └── index.js # Configurações para inicializar a API
 ```
+
+[Apresentação](https://drive.google.com/open?id=1viUT0z4XnDT0ba60haKwxWlvzqHjvOkT) 
